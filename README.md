@@ -1,26 +1,44 @@
+# Prerequisites
+Before you get started, make sure you have the following items installed:
+
+Node.js (Recommended: LTS)
+Angular CLI (Install globally with npm install -g @angular/cli)
+
+# Clone the Repository
+
+git clone https://github.com/HenryLimaEXE/Lista_de_tarefas-main.git
+
+# Install Dependencies 
+
+npm install
+
+# Run Local Server
+
+ng serve
+
 # ListaTarefas
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
 
-# Aplicação de Gerenciamento de Tarefas
+# Task Management Application
 
-Uma aplicação simples de gerenciamento de tarefas construída com Angular, HTML, CSS, JavaScript e Bootstrap. Esta aplicação permite que você adicione, edite, exclua e organize tarefas em três listas: Concluídas, Pendentes e Em Progresso.
+A simple task management application built with Angular, HTML, CSS, JavaScript, and Bootstrap. This application allows you to add, edit, delete, and organize tasks into three lists: Completed, Pending, and In Progress.
 
-## Funcionalidades Principais
+## Main Features
 
-- Adicionar novas tarefas com informações detalhadas, como nome, data limite e descrição.
-- Editar tarefas existentes para atualizar suas informações.
-- Excluir tarefas que não são mais necessárias.
-- Mover tarefas entre as listas "Concluídas", "Pendentes" e "Em Progresso".
-- Marcar tarefas como concluídas ou pendentes com caixas de seleção.
+- Add New Tasks: Input detailed information such as task name, deadline, and description.
+- Edit Existing Tasks: Update task details as needed.
+- Delete Tasks: Remove tasks that are no longer necessary.
+- Move Tasks Between Lists: Organize tasks into "Completed", "Pending", and "In Progress" categories.
+- Mark Tasks as Completed or Pending: Use checkboxes to manage task statuses.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-- Angular: Um poderoso framework JavaScript para desenvolvimento de aplicativos web.
-- HTML: Linguagem de marcação para estruturar o conteúdo da aplicação.
-- CSS: Linguagem de estilo para design e layout da aplicação.
-- JavaScript: Linguagem de programação usada para interatividade.
-- Bootstrap: Framework de front-end para criar interfaces de usuário responsivas e atraentes.
+- Angular: A powerful JavaScript framework for building web applications.
+- HTML: Markup language for structuring application content.
+- CSS: Style language for design and layout of the application.
+- JavaScript: Programming language used for interactivity.
+- Bootstrap: A front-end framework for creating responsive and attractive user interfaces.
 
 
 
