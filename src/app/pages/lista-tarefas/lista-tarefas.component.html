@@ -1,99 +1,122 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista_Tarefas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  </head>
-  <body>  
-_
-    <div class="container mt-5">
-      <h1 class="text-center">Adicionar TAREFA</h1>
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="input-group">
-            <input [(ngModel)]="novaTarefa" placeholder="Tarefa" class="form-control">
-            <input [(ngModel)]="novaDataLimite" placeholder="Data Limite" type="date" class="form-control">
-            <input [(ngModel)]="novaDescricao" placeholder="Descrição" class="form-control">
-            <div class="input-group-append">
-              <button (click)="adicionarTarefa()" class="btn btn-primary">Adicionar</button>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista_Tarefas</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-5">LISTA DE TAREFAS</h1>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label for="novaTarefa">Tarefa</label>
+          <input [(ngModel)]="novaTarefa" id="novaTarefa" placeholder="Tarefa" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+          <label for="novaDataLimite">Data Limite</label>
+          <input [(ngModel)]="novaDataLimite" id="novaDataLimite" placeholder="Data Limite" type="date"
+            class="form-control">
+        </div>
+        <div class="form-group mb-3">
+          <label for="tarefa">Descrição</label>
+          <textarea id="tarefa" name="tarefa" rows="5" class="form-control" [(ngModel)]="novaDescricao"
+            placeholder="Descrição da Tarefa"></textarea>
+        </div>
+        <div class="text-center">
+          <button (click)="adicionarTarefa()" class="btn btn-primary">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr width="60%" color="black">
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <h2 class="text-center">Tarefas Pendentes</h2>
+        <ul class="list-group">
+          <li *ngFor="let tarefa of tarefasPendentes; let i = index" class="list-group-item">
+            <div class="form-check">
+              <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input"
+                [disabled]="!tarefa.concluida">
+              <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
+                Tarefa: {{ tarefa.tarefa }}<br>
+                Data Limite: {{ tarefa.dataLimite }}<br>
+                Descrição: {{ tarefa.descricao }}
+              </span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-md-4 tarefas-table-container">
-          <h2 class="text-center">Tarefas Pendentes</h2>
-          <ul class="list-group">
-            <li *ngFor="let tarefa of tarefasPendentes; let i = index" class="list-group-item">
-              <div class="form-check">
-                <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input" [disabled]="!tarefa.concluida">
-                <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
-                  Tarefa: {{ tarefa.tarefa }}<br>
-                  Data Limite: {{ tarefa.dataLimite }}<br>
-                  Descrição: {{ tarefa.descricao }}
-                </span>
-              </div>
-              
-              <button (click)="editarTarefa(i, tarefasPendentes)" class="btn btn-warning btn-sm float-right mb-2">Editar</button>
-              <button (click)="alternarStatusTarefa(i, tarefasPendentes)" class="btn btn-success btn-sm float-right mb-2">Concluída</button>
-              <button (click)="excluirTarefa(i, tarefasPendentes)" class="btn btn-danger btn-sm float-right">Excluir</button>
-              <button (click)="moverParaFazendo(i)" class="btn btn-primary btn-sm float-right mb-2">Fazer</button>
-
+            <div class="d-flex justify-content-end mt-2">
+              <button (click)="editarTarefa(i, tarefasPendentes)" class="btn btn-warning btn-sm mr-2">Editar</button>
+              <button (click)="alternarStatusTarefa(i, tarefasPendentes)" class="btn btn-success btn-sm mr-2">
+                Concluída
+              </button>
+              <button (click)="moverParaFazendo(i)" class="btn btn-primary btn-sm mr-2">Fazer</button>
+              <button (click)="excluirTarefa(i, tarefasPendentes)" class="btn btn-danger btn-sm">Excluir</button>
+            </div>
           </li>
-          </ul>
-        </div>
-        
-        <div class="col-md-4 tarefas-table-container">
-          <h2 class="text-center">Tarefas Concluídas</h2>
-          <ul class="list-group">
-            <li *ngFor="let tarefa of tarefasConcluidas; let i = index" class="list-group-item">
-              <div class="form-check">
-                <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input" [disabled]="!tarefa.concluida">
-                <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
-                  Tarefa: {{ tarefa.tarefa }}<br>
-                  Data Limite: {{ tarefa.dataLimite }}<br>
-                  Descrição: {{ tarefa.descricao }}
-                </span>
-              </div>
-              
-              <button (click)="editarTarefa(i, tarefasConcluidas)" class="btn btn-warning btn-sm float-right mb-2">Editar</button>
-              <button (click)="alternarStatusTarefa(i, tarefasConcluidas)" class="btn btn-primary btn-sm float-right mb-2">Pendente</button>
-              <button (click)="excluirTarefa(i, tarefasConcluidas)" class="btn btn-danger btn-sm float-right">Excluir</button>
-           
-            </li>
-          </ul>
-        </div>
+        </ul>
+      </div>
 
-        <div class="col-md-4 tarefas-table-container">
-          <h2 class="text-center">Tarefas em Progresso</h2>
-          <ul class="list-group">
-            <li *ngFor="let tarefa of tarefasAFazer; let i = index" class="list-group-item">
-              <div class="form-check">
-                <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input" [disabled]="!tarefa.concluida">
-                <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
-                  Tarefa: {{ tarefa.tarefa }}<br>
-                  Data Limite: {{ tarefa.dataLimite }}<br>
-                  Descrição: {{ tarefa.descricao }}
-                </span>
-              </div>
+      <div class="col-md-4 mb-4">
+        <h2 class="text-center">Tarefas Concluídas</h2>
+        <ul class="list-group">
+          <li *ngFor="let tarefa of tarefasConcluidas; let i = index" class="list-group-item">
+            <div class="form-check">
+              <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input"
+                [disabled]="!tarefa.concluida">
+              <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
+                Tarefa: {{ tarefa.tarefa }}<br>
+                Data Limite: {{ tarefa.dataLimite }}<br>
+                Descrição: {{ tarefa.descricao }}
+              </span>
+            </div>
+            <div class="d-flex justify-content-end mt-2">
+              <button (click)="editarTarefa(i, tarefasConcluidas)" class="btn btn-warning btn-sm mr-2">Editar</button>
+              <button (click)="alternarStatusTarefa(i, tarefasConcluidas)" class="btn btn-primary btn-sm mr-2">
+                Pendente
+              </button>
+              <button (click)="excluirTarefa(i, tarefasConcluidas)" class="btn btn-danger btn-sm">Excluir</button>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-              <button (click)="editarTarefa(i, tarefasAFazer)" class="btn btn-warning btn-sm float-right mb-2">Editar</button>
-              <button (click)="alternarStatusTarefa(i, tarefasAFazer)" class="btn btn-success btn-sm float-right mb-2">Concluída</button>
-              <button (click)="excluirTarefa(i, tarefasAFazer)" class="btn btn-danger btn-sm float-right">Excluir</button>
-           
-            </li>
-          </ul>
-        </div> 
+      <div class="col-md-4 mb-4">
+        <h2 class="text-center">Tarefas em Progresso</h2>
+        <ul class="list-group">
+          <li *ngFor="let tarefa of tarefasAFazer; let i = index" class="list-group-item">
+            <div class="form-check">
+              <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input"
+                [disabled]="!tarefa.concluida">
+              <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
+                Tarefa: {{ tarefa.tarefa }}<br>
+                Data Limite: {{ tarefa.dataLimite }}<br>
+                Descrição: {{ tarefa.descricao }}
+              </span>
+            </div>
+            <div class="d-flex justify-content-end mt-2">
+              <button (click)="editarTarefa(i, tarefasAFazer)" class="btn btn-warning btn-sm mr-2">Editar</button>
+              <button (click)="alternarStatusTarefa(i, tarefasAFazer)" class="btn btn-success btn-sm mr-2">
+                Concluída
+              </button>
+              <button (click)="excluirTarefa(i, tarefasAFazer)" class="btn btn-danger btn-sm">Excluir</button>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
-  </html>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
