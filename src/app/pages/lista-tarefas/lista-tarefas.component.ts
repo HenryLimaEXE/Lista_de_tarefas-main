@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tarefa } from '../../shared/models/tarefa.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-tarefas',
@@ -15,6 +16,7 @@ import { Tarefa } from '../../shared/models/tarefa.interface';
     novaTarefa = '';
     novaDataLimite = '';
     novaDescricao = '';
+    dataInvalida: any;
   
     constructor() { }
 
@@ -26,7 +28,59 @@ import { Tarefa } from '../../shared/models/tarefa.interface';
     }
   }
 
+  formatarData(event: any): void {
+    let input = event.target.value.replace(/\D/g, '');
+    if (input.length > 8) {
+      input = input.substring(0, 8);
+    }
+
+    if (input.length > 4) {
+      input = input.substring(0, 2) + '/' + input.substring(2, 4) + '/' + input.substring(4, 8);
+    } else if (input.length > 2) {
+      input = input.substring(0, 2) + '/' + input.substring(2, 4);
+    }
+
+    this.novaDataLimite = input;
+    this.validarData(input); 
+  }
+
+  validarData(data: string): void {
+    const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+    if (!regex.test(data)) {
+      this.dataInvalida = true;
+      return;
+    }
+
+    const [dia, mes, ano] = data.split('/').map(Number);
+
+    // Valida o dia e o mês
+    if (dia < 1 || dia > 31 || mes < 1 || mes > 12) {
+      this.dataInvalida = true;
+    } else {
+      this.dataInvalida = false;
+    }
+  }
+
+  //#region CRUD TARFAS
+
+  limpar(){
+    this.tarefas = [];
+    this.tarefasPendentes = [];
+    this.tarefasConcluidas = [];
+    this.tarefasAFazer = [];
+    this.novaTarefa = '';
+    this.novaDataLimite = '';
+    this.novaDescricao = '';
+  }
+
   adicionarTarefa() {
+
+    if ( this.novaTarefa.trim() == '' || this.novaDataLimite.trim() == '' || this.novaDescricao.trim() == '' ) {
+
+      Swal.fire( "É Necessário preencher todos os campos para adicionar uma nova tafera" )
+
+    }
+
     if (this.novaTarefa.trim() !== '' && this.novaDataLimite.trim() !== '' && this.novaDescricao.trim() !== '') {
       this.tarefas.push({
         tarefa: this.novaTarefa,
@@ -104,5 +158,7 @@ import { Tarefa } from '../../shared/models/tarefa.interface';
 atualizarLocalStorage() {
   localStorage.setItem('tarefas', JSON.stringify(this.tarefas));
 }
+
+//#endregion
 
 }
