@@ -8,17 +8,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./lista-tarefas.component.css']
 })
 
-  export class ListaTarefasComponent implements OnInit {
-    tarefas: Tarefa[] = [];
-    tarefasPendentes: Tarefa[] = [];
-    tarefasConcluidas: Tarefa[] = [];
-    tarefasAFazer: Tarefa[] = [];
-    novaTarefa = '';
-    novaDataLimite = '';
-    novaDescricao = '';
-    dataInvalida: any;
-  
-    constructor() { }
+export class ListaTarefasComponent implements OnInit {
+  tarefas: Tarefa[] = [];
+  tarefasPendentes: Tarefa[] = [];
+  tarefasConcluidas: Tarefa[] = [];
+  tarefasAFazer: Tarefa[] = [];
+  novaTarefa = '';
+  novaDataLimite = '';
+  novaDescricao = '';
+  dataInvalida: any;
+
+  constructor() { }
 
   ngOnInit() {
     const tarefasFromStorage = localStorage.getItem('tarefas');
@@ -41,7 +41,7 @@ import Swal from 'sweetalert2';
     }
 
     this.novaDataLimite = input;
-    this.validarData(input); 
+    this.validarData(input);
   }
 
   validarData(data: string): void {
@@ -63,7 +63,7 @@ import Swal from 'sweetalert2';
 
   //#region CRUD TARFAS
 
-  limpar(){
+  limpar() {
     this.tarefas = [];
     this.tarefasPendentes = [];
     this.tarefasConcluidas = [];
@@ -75,9 +75,9 @@ import Swal from 'sweetalert2';
 
   adicionarTarefa() {
 
-    if ( this.novaTarefa.trim() == '' || this.novaDataLimite.trim() == '' || this.novaDescricao.trim() == '' ) {
+    if (this.novaTarefa.trim() == '' || this.novaDataLimite.trim() == '' || this.novaDescricao.trim() == '') {
 
-      Swal.fire( "É Necessário preencher todos os campos para adicionar uma nova tafera" )
+      Swal.fire("É Necessário preencher todos os campos para adicionar uma nova tafera");
 
     }
 
@@ -97,39 +97,80 @@ import Swal from 'sweetalert2';
     }
   }
 
-  editarTarefa(index: number, lista: { tarefa: string, dataLimite: string, descricao: string, concluida: boolean }[]) {
-    const novaTarefa = prompt('Editar tarefa:', lista[index].tarefa);
-    if (novaTarefa !== null) {
+  async editarTarefa(index: number, lista: { tarefa: string, dataLimite: string, descricao: string, concluida: boolean }[]) {
+    // Editar Tarefa
+    const { value: novaTarefa } = await Swal.fire({
+      title: 'Editar Tarefa',
+      input: 'text',
+      inputValue: lista[index].tarefa,
+      showCancelButton: true,
+      confirmButtonText: 'Salvar',
+      cancelButtonText: 'Cancelar',
+      inputValidator: (value) => !value ? 'O nome da tarefa não pode estar vazio!' : null
+    });
+
+    if (novaTarefa) {
       lista[index].tarefa = novaTarefa;
       this.atualizarListas();
-      this.atualizarLocalStorage();
     }
 
-    const novaDataLimite = prompt('Editar Data:', lista[index].dataLimite);
-    if (novaDataLimite !== null) {
+    // Editar Data
+    const { value: novaDataLimite } = await Swal.fire({
+      title: 'Editar Data Limite',
+      input: 'date',
+      inputValue: lista[index].dataLimite,
+      showCancelButton: true,
+      confirmButtonText: 'Salvar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (novaDataLimite) {
       lista[index].dataLimite = novaDataLimite;
-      this.atualizarLocalStorage();
     }
 
-    const novaDescricao = prompt('Editar Descrição:', lista[index].descricao);
-    if (novaDescricao !== null) {
+    // Editar Descrição
+    const { value: novaDescricao } = await Swal.fire({
+      title: 'Editar Descrição',
+      input: 'textarea',
+      inputValue: lista[index].descricao,
+      showCancelButton: true,
+      confirmButtonText: 'Salvar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (novaDescricao) {
       lista[index].descricao = novaDescricao;
+    }
+
+    // Atualiza o localStorage apenas uma vez no final
+    if (novaTarefa || novaDataLimite || novaDescricao) {
       this.atualizarLocalStorage();
     }
-  } 
+  }
 
   excluirTarefa(index: number, lista: { tarefa: string, dataLimite: string, descricao: string, concluida: boolean }[]) {
-    if (lista === this.tarefasPendentes || lista === this.tarefasAFazer || lista === this.tarefasConcluidas) {
-      const taskIndex = this.tarefas.findIndex(task => task === lista[index]);
-      if (taskIndex !== -1) {
-        this.tarefas.splice(taskIndex, 1);
-        this.atualizarLocalStorage();
-      }
-
-    }
+    Swal.fire({
+      icon: 'warning',
+      html: 'Tem certeza que quer excluir?',
+      showCancelButton: true,
+      confirmButtonText: 'Sim, excluir',
+      cancelButtonText: 'Não',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (lista === this.tarefasPendentes || lista === this.tarefasAFazer || lista === this.tarefasConcluidas) {
+          const taskIndex = this.tarefas.findIndex(task => task === lista[index]);
+          if (taskIndex !== -1) {
+            this.tarefas.splice(taskIndex, 1);
+            this.atualizarLocalStorage();
+          }
+        }
         lista.splice(index, 1);
         this.atualizarListas();
         this.atualizarLocalStorage();
+      }
+    });
   }
 
   atualizarListas() {
@@ -143,9 +184,9 @@ import Swal from 'sweetalert2';
     this.atualizarListas();
     this.atualizarLocalStorage();
   }
-  
+
   moverParaFazendo(index: number) {
-  const tarefaSelecionada = this.tarefasPendentes[index];
+    const tarefaSelecionada = this.tarefasPendentes[index];
     if (tarefaSelecionada) {
 
       this.tarefasPendentes.splice(index, 1);
@@ -153,12 +194,12 @@ import Swal from 'sweetalert2';
       this.tarefasAFazer.push(tarefaSelecionada);
       this.atualizarLocalStorage();
     }
-}
+  }
 
-atualizarLocalStorage() {
-  localStorage.setItem('tarefas', JSON.stringify(this.tarefas));
-}
+  atualizarLocalStorage() {
+    localStorage.setItem('tarefas', JSON.stringify(this.tarefas));
+  }
 
-//#endregion
+  //#endregion
 
 }
