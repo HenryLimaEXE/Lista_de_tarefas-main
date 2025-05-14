@@ -185,12 +185,10 @@ export class ListaTarefasComponent implements OnInit {
     this.atualizarLocalStorage();
   }
 
-  moverParaFazendo(index: number) {
-    const tarefaSelecionada = this.tarefasPendentes[index];
+  moverParaFazendo(index: number, lista: { tarefa: string, dataLimite: string, descricao: string, concluida: boolean }[]) {
+    const tarefaSelecionada = lista[index];
     if (tarefaSelecionada) {
-
-      this.tarefasPendentes.splice(index, 1);
-
+      lista.splice(index, 1);
       this.tarefasAFazer.push(tarefaSelecionada);
       this.atualizarLocalStorage();
     }

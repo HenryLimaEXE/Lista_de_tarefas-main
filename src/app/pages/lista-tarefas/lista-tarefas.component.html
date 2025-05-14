@@ -11,7 +11,9 @@
 <body>
 
   <div class="container mt-5">
-    <h1 class="text-center mb-5">LISTA DE TAREFAS</h1>
+    <h1 class="text-center mb-5 fw-light display-4 text-muted border-bottom pb-3">
+      LISTA DE TAREFAS
+    </h1>
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="form-group mb-3">
@@ -41,73 +43,126 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-4 mb-4">
-        <h2 class="text-center">Tarefas Pendentes</h2>
+        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Tarefas Pendentes</h2>
         <ul class="list-group">
-          <li *ngFor="let tarefa of tarefasPendentes; let i = index" class="list-group-item">
+          <li *ngFor="let tarefa of tarefasPendentes; let i = index"
+            class="list-group-item mb-3 rounded shadow-sm hover-effect">
             <div class="form-check">
               <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input"
                 [disabled]="!tarefa.concluida">
-              <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
-                Tarefa: {{ tarefa.tarefa }}<br>
-                Data Limite: {{ tarefa.dataLimite }}<br>
-                Descrição: {{ tarefa.descricao }}
+              <span [class]="tarefa.concluida ? 'tarefa-concluida text-muted' : 'tarefa-pendente'">
+                <h5 class="mb-2 fw-bold">{{ tarefa.tarefa }}</h5>
+                <div class="d-flex align-items-center mb-1">
+                  <i class="bi bi-calendar me-2"></i>
+                  <small class="text-muted">Data: {{ tarefa.dataLimite | date:'dd/MM/yyyy' }}</small>
+                </div>
+                <p class="mb-0"><i class="bi bi-card-text me-2"></i>{{ tarefa.descricao }}</p>
               </span>
             </div>
-            <div class="d-flex justify-content-end mt-2">
-              <button (click)="editarTarefa(i, tarefasPendentes)" class="btn btn-warning btn-sm mr-2">Editar</button>
-              <button (click)="alternarStatusTarefa(i, tarefasPendentes)" class="btn btn-success btn-sm mr-2">
-                Concluída
+            <div class="d-flex justify-content-end mt-3 gap-2">
+              <button (click)="editarTarefa(i, tarefasPendentes)" class="btn btn-outline-warning btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Editar tarefa">
+                <i class="bi bi-pencil"></i>
               </button>
-              <button (click)="moverParaFazendo(i)" class="btn btn-primary btn-sm mr-2">Fazer</button>
-              <button (click)="excluirTarefa(i, tarefasPendentes)" class="btn btn-danger btn-sm">Excluir</button>
+
+              <button (click)="alternarStatusTarefa(i, tarefasPendentes)" class="btn btn-outline-success btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar como concluída">
+                <i class="bi bi-check2"></i>
+              </button>
+
+              <button (click)="moverParaFazendo(i, tarefasPendentes)" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip"
+                data-bs-placement="top" title="Mover para 'Fazendo'">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+
+              <button (click)="excluirTarefa(i, tarefasPendentes)" class="btn btn-outline-danger btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir tarefa">
+                <i class="bi bi-trash"></i>
+              </button>
             </div>
           </li>
         </ul>
       </div>
 
       <div class="col-md-4 mb-4">
-        <h2 class="text-center">Tarefas Concluídas</h2>
+        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Tarefas Concluídas</h2>
         <ul class="list-group">
-          <li *ngFor="let tarefa of tarefasConcluidas; let i = index" class="list-group-item">
+          <li *ngFor="let tarefa of tarefasConcluidas; let i = index"
+            class="list-group-item mb-3 rounded shadow-sm hover-effect">
             <div class="form-check">
               <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input"
                 [disabled]="!tarefa.concluida">
-              <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
-                Tarefa: {{ tarefa.tarefa }}<br>
-                Data Limite: {{ tarefa.dataLimite }}<br>
-                Descrição: {{ tarefa.descricao }}
+              <span [class]="tarefa.concluida ? 'tarefa-concluida text-muted' : 'tarefa-pendente'">
+                <h5 class="mb-2 fw-bold">{{ tarefa.tarefa }}</h5>
+                <div class="d-flex align-items-center mb-1">
+                  <i class="bi bi-calendar me-2"></i>
+                  <small class="text-muted">Data: {{ tarefa.dataLimite | date:'dd/MM/yyyy' }}</small>
+                </div>
+                <p class="mb-0"><i class="bi bi-card-text me-2"></i>{{ tarefa.descricao }}</p>
               </span>
             </div>
-            <div class="d-flex justify-content-end mt-2">
-              <button (click)="editarTarefa(i, tarefasConcluidas)" class="btn btn-warning btn-sm mr-2">Editar</button>
-              <button (click)="alternarStatusTarefa(i, tarefasConcluidas)" class="btn btn-primary btn-sm mr-2">
-                Pendente
+            <div class="d-flex justify-content-end mt-3 gap-2">
+              <button (click)="editarTarefa(i, tarefasConcluidas)" class="btn btn-outline-warning btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Editar tarefa">
+                <i class="bi bi-pencil"></i>
               </button>
-              <button (click)="excluirTarefa(i, tarefasConcluidas)" class="btn btn-danger btn-sm">Excluir</button>
+
+              <button (click)="alternarStatusTarefa(i, tarefasConcluidas)" class="btn btn-outline-success btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar como concluída" [disabled]="true">
+                <i class="bi bi-check2"></i>
+              </button>
+
+              <button (click)="moverParaFazendo(i, tarefasConcluidas)" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip"
+                data-bs-placement="top" title="Mover para 'Fazendo'">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+
+              <button (click)="excluirTarefa(i, tarefasConcluidas)" class="btn btn-outline-danger btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir tarefa">
+                <i class="bi bi-trash"></i>
+              </button>
             </div>
           </li>
         </ul>
       </div>
 
       <div class="col-md-4 mb-4">
-        <h2 class="text-center">Tarefas em Progresso</h2>
+        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Tarefas A Fazer</h2>
         <ul class="list-group">
-          <li *ngFor="let tarefa of tarefasAFazer; let i = index" class="list-group-item">
+          <li *ngFor="let tarefa of tarefasAFazer; let i = index"
+            class="list-group-item mb-3 rounded shadow-sm hover-effect">
             <div class="form-check">
               <input type="checkbox" [(ngModel)]="tarefa.concluida" class="form-check-input"
                 [disabled]="!tarefa.concluida">
-              <span [class]="tarefa.concluida ? 'tarefa-concluida' : ''">
-                Tarefa: {{ tarefa.tarefa }}<br>
-                Data Limite: {{ tarefa.dataLimite }}<br>
-                Descrição: {{ tarefa.descricao }}
+              <span [class]="tarefa.concluida ? 'tarefa-concluida text-muted' : 'tarefa-pendente'">
+                <h5 class="mb-2 fw-bold">{{ tarefa.tarefa }}</h5>
+                <div class="d-flex align-items-center mb-1">
+                  <i class="bi bi-calendar me-2"></i>
+                  <small class="text-muted">Data: {{ tarefa.dataLimite | date:'dd/MM/yyyy' }}</small>
+                </div>
+                <p class="mb-0"><i class="bi bi-card-text me-2"></i>{{ tarefa.descricao }}</p>
               </span>
             </div>
-            <div class="d-flex justify-content-end mt-2">
-              <button (click)="editarTarefa(i, tarefasAFazer)" class="btn btn-warning btn-sm mr-2">Editar</button>
-              <button (click)="alternarStatusTarefa(i, tarefasAFazer)" class="btn btn-success btn-sm mr-2">
-                Concluída
+            <div class="d-flex justify-content-end mt-3 gap-2">
+              <button (click)="editarTarefa(i, tarefasAFazer)" class="btn btn-outline-warning btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Editar tarefa">
+                <i class="bi bi-pencil"></i>
               </button>
-              <button (click)="excluirTarefa(i, tarefasAFazer)" class="btn btn-danger btn-sm">Excluir</button>
+
+              <button (click)="alternarStatusTarefa(i, tarefasAFazer)" class="btn btn-outline-success btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar como concluída">
+                <i class="bi bi-check2"></i>
+              </button>
+
+              <button (click)="moverParaFazendo(i, tarefasAFazer)" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip"
+                data-bs-placement="top" title="Mover para 'Fazendo'" [disabled]="true">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+
+              <button (click)="excluirTarefa(i, tarefasAFazer)" class="btn btn-outline-danger btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir tarefa">
+                <i class="bi bi-trash"></i>
+              </button>
             </div>
           </li>
         </ul>
