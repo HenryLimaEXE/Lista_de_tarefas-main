@@ -12,13 +12,13 @@
 
   <div class="container mt-5">
     <h1 class="text-center mb-5 fw-light display-4 text-muted border-bottom pb-3">
-      LISTA DE TAREFAS
+      AGENDAMENTO
     </h1>
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="form-group mb-3">
-          <label for="novaTarefa">Tarefa</label>
-          <input [(ngModel)]="novaTarefa" id="novaTarefa" placeholder="Tarefa" class="form-control">
+          <label for="novaTarefa">Serviço</label>
+          <input [(ngModel)]="novaTarefa" id="novaTarefa" placeholder="Serviço" class="form-control">
         </div>
         <div class="form-group mb-3">
           <label for="novaDataLimite">Data Limite</label>
@@ -28,7 +28,7 @@
         <div class="form-group mb-3">
           <label for="tarefa">Descrição</label>
           <textarea id="tarefa" name="tarefa" rows="5" class="form-control" [(ngModel)]="novaDescricao"
-            placeholder="Descrição da Tarefa"></textarea>
+            placeholder="Descrição da Serviço"></textarea>
         </div>
         <div class="text-center">
           <button (click)="adicionarTarefa()" class="btn btn-primary">Adicionar</button>
@@ -43,7 +43,7 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-4 mb-4">
-        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Tarefas Pendentes</h2>
+        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Serviço Pendentes</h2>
         <ul class="list-group">
           <li *ngFor="let tarefa of tarefasPendentes; let i = index"
             class="list-group-item mb-3 rounded shadow-sm hover-effect">
@@ -85,7 +85,7 @@
       </div>
 
       <div class="col-md-4 mb-4">
-        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Tarefas Concluídas</h2>
+        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Serviço Concluídas</h2>
         <ul class="list-group">
           <li *ngFor="let tarefa of tarefasConcluidas; let i = index"
             class="list-group-item mb-3 rounded shadow-sm hover-effect">
@@ -127,7 +127,7 @@
       </div>
 
       <div class="col-md-4 mb-4">
-        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Tarefas A Fazer</h2>
+        <h2 class="text-center mb-4 p-3 bg-light rounded shadow-sm">Serviço A Fazer</h2>
         <ul class="list-group">
           <li *ngFor="let tarefa of tarefasAFazer; let i = index"
             class="list-group-item mb-3 rounded shadow-sm hover-effect">
