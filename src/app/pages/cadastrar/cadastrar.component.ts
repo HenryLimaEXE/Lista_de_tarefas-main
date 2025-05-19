@@ -41,8 +41,8 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  navigateToRegister() {
-    this.router.navigate(['/register']);
+  backLogin() {
+    this.router.navigate(['/login']);
   }
 
   resetPassword() {
@@ -78,7 +78,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
           text: 'Este e-mail já está em uso. Por favor, use outro ou faça login.',
           confirmButtonText: 'Entendi'
         });
-        return; 
+        return;
       }
 
       const userId = 'user_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
@@ -87,7 +87,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
         id: userId,
         name_user: this.loginForm.value.name_user,
         email: userEmail,
-        password: this.loginForm.value.password 
+        password: this.loginForm.value.password
       };
 
       existingUsers.push(userData);
