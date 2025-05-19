@@ -134,3 +134,31 @@ section {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.header {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+button.mat-icon-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mat-menu-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.mat-menu-item mat-icon {
+  margin-right: 8px;
+}
+
+.mat-menu {
+  min-width: 160px; 
+}

@@ -1,0 +1,55 @@
+<body>
+    <mat-card-header class="login-header">
+        <mat-card-title>
+            <h1 class="mat-display-1">Bem-vindo de volta ao Acesso Univesp!</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <p>Por favor, faça login para continuar</p>
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form [formGroup]="loginForm">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email" placeholder="exemplo@email.com">
+                <mat-icon matSuffix>mail</mat-icon>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                    E-mail é obrigatório
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                    Por favor, insira um e-mail válido
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Senha</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                    Senha é obrigatória
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+                    A senha deve ter pelo menos 6 caracteres
+                </mat-error>
+            </mat-form-field>
+
+
+            <button mat-raised-button color="primary" class="full-width" type="submit" (click)="VerificarLogin()"
+                [disabled]="!loginForm.valid || isLoading">
+                <span *ngIf="!isLoading">Entrar</span>
+                <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
+            </button>
+        </form>
+    </mat-card-content>
+
+    <mat-card-actions class="register-section">
+        <button mat-raised-button color="primary" class="full-width" type="submit" (click)="navigateToRegister()">
+            <span *ngIf="!isLoading">Cadastrar-se</span>
+            <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
+        </button>
+    </mat-card-actions>
+
+</body>

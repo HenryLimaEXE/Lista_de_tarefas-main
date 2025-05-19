@@ -121,26 +121,6 @@ footer {
   display: flex;
   justify-content: center;
   gap: 16px;
-
-  button {
-    width: 48px;
-    height: 48px;
-
-    &.google {
-      background-color: #DB4437;
-      color: white;
-    }
-
-    &.facebook {
-      background-color: #4267B2;
-      color: white;
-    }
-
-    &.twitter {
-      background-color: #1DA1F2;
-      color: white;
-    }
-  }
 }
 
 .mat-card {
@@ -152,12 +132,7 @@ footer {
   }
 }
 
-.success-snackbar {
-  background-color: #4caf50 !important;
-  color: white !important;
-}
-
-.error-snackbar {
-  background-color: #f44336 !important;
-  color: white !important;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
