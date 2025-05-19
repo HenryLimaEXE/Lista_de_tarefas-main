@@ -1,0 +1,78 @@
+<body>
+    <mat-card class="login-card">
+        <mat-card-header class="login-header">
+            <mat-card-title>
+                <h1 class="mat-display-1">Cadastrar Usuário!</h1>
+            </mat-card-title>
+            <mat-card-subtitle>
+                <p>Por favor, faça login para continuar</p>
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="Cadastrar()">
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Nome de Usário</mat-label>
+                    <input matInput formControlName="name_user">
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="loginForm.get('name_user')?.hasError('required')">
+                        Nome de Usário é obrigatório
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('name_user')?.hasError('name_user')">
+                        Por favor, insira um Nome de Usário válido
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="email" placeholder="exemplo@email.com">
+                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                        E-mail é obrigatório
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                        Por favor, insira um e-mail válido
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Senha</mat-label>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+                    <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                        Senha é obrigatória
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+                        A senha deve ter pelo menos 6 caracteres
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Confirmar Senha</mat-label>
+                    <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword"
+                        required>
+                    <button type="button" mat-icon-button matSuffix
+                        (click)="hideConfirmPassword = !hideConfirmPassword">
+                        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="loginForm.get('confirmPassword')?.hasError('required')">
+                        Confirmação de senha é obrigatória
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('confirmPassword')?.hasError('passwordMismatch')">
+                        As senhas não coincidem
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" class="full-width" type="submit"
+                    [disabled]="!loginForm.valid || isLoading" (click)="Cadastrar()">
+                    <span *ngIf="!isLoading">Cadastrar</span>
+                    <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
+                </button>
+            </form>
+        </mat-card-content>
+
+    </mat-card>
+</body>

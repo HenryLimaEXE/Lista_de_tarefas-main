@@ -9,6 +9,26 @@
 </head>
 
 <body>
+  <div class="header">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon matSuffix>person</mat-icon>
+        {{ userName || 'Usuário Desconhecido' }}
+      </button>
+      <button mat-menu-item (click)="redirecionarParaRedefinirSenha()">
+        <mat-icon>lock_reset</mat-icon>
+        Redefinir Senha
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        Sair
+      </button>
+    </mat-menu>
+  </div>
 
   <div class="container mt-5">
     <h1 class="text-center mb-5 fw-light display-4 text-muted border-bottom pb-3">
@@ -70,8 +90,8 @@
                 <i class="bi bi-check2"></i>
               </button>
 
-              <button (click)="moverParaFazendo(i, tarefasPendentes)" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Mover para 'Fazendo'">
+              <button (click)="moverParaFazendo(i, tarefasPendentes)" class="btn btn-outline-primary btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Mover para 'Fazendo'">
                 <i class="bi bi-arrow-right"></i>
               </button>
 
@@ -112,8 +132,8 @@
                 <i class="bi bi-check2"></i>
               </button>
 
-              <button (click)="moverParaFazendo(i, tarefasConcluidas)" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Mover para 'Fazendo'">
+              <button (click)="moverParaFazendo(i, tarefasConcluidas)" class="btn btn-outline-primary btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Mover para 'Fazendo'">
                 <i class="bi bi-arrow-right"></i>
               </button>
 
@@ -154,8 +174,8 @@
                 <i class="bi bi-check2"></i>
               </button>
 
-              <button (click)="moverParaFazendo(i, tarefasAFazer)" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Mover para 'Fazendo'" [disabled]="true">
+              <button (click)="moverParaFazendo(i, tarefasAFazer)" class="btn btn-outline-primary btn-sm"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Mover para 'Fazendo'" [disabled]="true">
                 <i class="bi bi-arrow-right"></i>
               </button>
 
