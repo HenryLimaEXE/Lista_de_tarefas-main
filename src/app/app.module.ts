@@ -22,6 +22,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -48,7 +55,14 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSidenavModule
 
   ],
 

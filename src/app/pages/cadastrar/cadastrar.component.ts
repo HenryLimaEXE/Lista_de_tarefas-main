@@ -41,8 +41,8 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  navigateToRegister() {
-    this.router.navigate(['/register']);
+  backLogin() {
+    this.router.navigate(['/login']);
   }
 
   resetPassword() {
@@ -69,7 +69,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
       const userEmail = this.loginForm.value.email;
       const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
-      const emailAlreadyExists = existingUsers.some((user: any) => user.email === userEmail);
+      const emailAlreadyExists = existingUsers.some((user: any) => user.email == userEmail);
 
       if (emailAlreadyExists) {
         Swal.fire({
@@ -78,7 +78,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
           text: 'Este e-mail já está em uso. Por favor, use outro ou faça login.',
           confirmButtonText: 'Entendi'
         });
-        return; 
+        return;
       }
 
       const userId = 'user_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
@@ -87,7 +87,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
         id: userId,
         name_user: this.loginForm.value.name_user,
         email: userEmail,
-        password: this.loginForm.value.password 
+        password: this.loginForm.value.password
       };
 
       existingUsers.push(userData);
@@ -107,7 +107,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
           icon: 'success',
           title: 'Cadastro realizado!',
           text: 'Você será redirecionado para o login',
-          timer: 1500,
+          timer: 2000,
           showConfirmButton: false
         }).then(() => {
           this.router.navigate(['/login']);
@@ -122,5 +122,4 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
 }
