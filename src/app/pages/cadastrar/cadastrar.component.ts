@@ -69,7 +69,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
       const userEmail = this.loginForm.value.email;
       const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
-      const emailAlreadyExists = existingUsers.some((user: any) => user.email === userEmail);
+      const emailAlreadyExists = existingUsers.some((user: any) => user.email == userEmail);
 
       if (emailAlreadyExists) {
         Swal.fire({
@@ -107,7 +107,7 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
           icon: 'success',
           title: 'Cadastro realizado!',
           text: 'Você será redirecionado para o login',
-          timer: 1500,
+          timer: 2000,
           showConfirmButton: false
         }).then(() => {
           this.router.navigate(['/login']);
@@ -122,5 +122,4 @@ export class CadastrarComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
 }
