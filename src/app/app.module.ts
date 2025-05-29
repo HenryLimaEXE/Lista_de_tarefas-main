@@ -30,6 +30,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
+//firebase Settings
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { environment } from 'src/environments/environments';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,8 +70,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatTooltipModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSidenavModule
-
+    MatSidenavModule,
+    AngularFireModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
   ],
 
   providers: [],
